@@ -1,16 +1,30 @@
+import { Channel } from '@/types/channel'
+import { deleteDoc, doc, getFirestore } from 'firebase/firestore'
+import { initFirebase } from '@/firebase/clientApp'
 import styles from './Table.module.scss'
 
 import DeleteIcon from '@/icons/delete'
 import EditIcon from '@/icons/edit'
-import { Channel } from '@/types/channel'
+
+const db = getFirestore(initFirebase())
 
 type Table = {
-  channels: Channel[]
+  channels: Channel[],
 }
 
-export default function Table(
-  { channels }: Table
-) {
+export default function Table({ channels }: Table) {
+  const handleDelete = async (docId: string) => {
+    console.log('Epa!')
+    try {
+      await deleteDoc(doc(db, 'channels', docId))
+      console.log(docId)
+      console.log('Se intentó!')
+      //setChannels(channels.filter(channel => channel.id !== id))
+    } catch (error) {
+      console.error('Error deleting document: ', error)
+    }
+  }
+
   return (
     <div className={styles['table']}>
       <div className={styles['table-head']}>
@@ -27,7 +41,10 @@ export default function Table(
                 <button title="Editar Canal">
                   <EditIcon />
                 </button>
-                <button title="Eliminar Canal">
+                <button
+                  title="Eliminar Canal"
+                  onClick={() => handleDelete(channel.docId)}
+                >
                   <DeleteIcon />
                 </button>
               </div>

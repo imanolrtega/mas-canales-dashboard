@@ -1,5 +1,6 @@
 export type Channel = {
-  name: string
+  docId: string
   id: string
+  name: string
   type: string
 }

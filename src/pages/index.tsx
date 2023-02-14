@@ -22,7 +22,7 @@ export default function Home() {
       querySnapshot => {
         const docs = [] as Channel[]
         querySnapshot.forEach(doc => {
-          docs.push(doc.data() as Channel)
+          docs.push({ ...doc.data(), docId: doc.id } as Channel)
         })
         setChannels(docs)
       }
