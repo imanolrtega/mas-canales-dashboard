@@ -1,7 +1,9 @@
 .form {
+  width: 100%;
   z-index: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 
   label {
     font-size: 1rem;
@@ -15,25 +17,32 @@
     margin-bottom: 0.5rem;
   }
 
-  input, button {
-    background-color: transparent;
+  button,
+  input,
+  select {
+    background: transparent;
     border-radius: 0.4rem;
-    border: 1px solid rgba(var(--card-border-rgb), 0.15);
     font-size: 1rem;
     margin: 0.5rem 0;
     padding: 0.5rem;
   }
 
   input {
+    font-size: 0.9rem;
+    border: 1px solid rgba(var(--card-border-rgb), 0.30);
+
     &:focus {
       background: var(--input-glow);
     }
   }
 
   button {
+    background: var(--button-glow);
     cursor: pointer;
+    border: 1px solid rgba(var(--card-border-rgb), 0.50);
+
     &:hover {
-      background: var(--button-glow);
+      background: var(--button-glow-hover);
     }
   }
 }

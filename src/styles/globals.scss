@@ -49,7 +49,10 @@
     --input-glow: radial-gradient(ellipse at top, rgba(1, 65, 255, 0.1), rgba(1, 65, 255, 0)),
       radial-gradient(ellipse at bottom, rgba(1, 65, 255, 0.1), rgba(1, 65, 255, 0));
 
-    --button-glow: radial-gradient(ellipse at top, rgba(1, 65, 255, 0.2), rgba(1, 65, 255, 0)),
+    --button-glow: radial-gradient(ellipse at top, rgba(1, 65, 255, 0.1), rgba(1, 65, 255, 0)),
+      radial-gradient(ellipse at bottom, rgba(1, 65, 255, 0.1), rgba(1, 65, 255, 0));
+
+    --button-glow-hover: radial-gradient(ellipse at top, rgba(1, 65, 255, 0.2), rgba(1, 65, 255, 0)),
       radial-gradient(ellipse at bottom, rgba(1, 65, 255, 0.2), rgba(1, 65, 255, 0));
 
     --tile-start-rgb: 2, 13, 46;

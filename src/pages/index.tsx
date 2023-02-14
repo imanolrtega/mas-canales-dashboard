@@ -1,18 +1,17 @@
 import { Channel } from '@/types/channel'
 import { collection, getFirestore, onSnapshot } from 'firebase/firestore'
 import { initFirebase } from '@/firebase/clientApp'
-import { Inter } from '@next/font/google'
-import { useEffect, useState, Fragment } from 'react'
+import { Rubik } from '@next/font/google'
+import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.scss'
 
-import DeleteIcon from '@/icons/delete'
-import EditIcon from '@/icons/edit'
-import Form from '@/components/form'
+import Form from '@/components/form/form'
+import Table from '@/components/table/table'
 
 const db = getFirestore(initFirebase())
-const inter = Inter({ subsets: ['latin'] })
+const rubik = Rubik({ subsets: ['latin'] })
 
 export default function Home() {
   const [channels, setChannels] = useState<Channel[]>([])
@@ -40,8 +39,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles['main']}>
-        <div className={styles['center']}>
-          <div className={styles['center']}>
+        <div className={styles['fancy-container']}>
+          <div className={styles['logo-container']}>
             <Image
               alt="13"
               src="/logo/mas-canales-logo.png"
@@ -50,28 +49,13 @@ export default function Home() {
               priority={true}
             />
           </div>
-          <div className={`${styles['table']} ${inter.className}`}>
-            <div className={styles['table-head']}>
-              <h3>Canales</h3>
+          <div className={`${styles['content']} ${rubik.className}`}>
+            <div className={styles['form-container']}>
+              <Form />
             </div>
-            <div className={styles['table-body']}>
-              {channels.map(channel => (
-                <div key={channel.id} className={styles['table-cell']}>
-                  <div className={styles['cell-col']}>
-                    <div className={styles['cell-name']}>{channel.name}</div>
-                  </div>
-                  <div className={styles['cell-col']}>
-                    <div className={styles['cell-buttons']}>
-                      <button title="Editar Canal"><EditIcon /></button>
-                      <button title="Eliminar Canal"><DeleteIcon /></button>
-                    </div>
-                  </div>
-                </div>
-              ))}
+            <div className={styles['table-container']}>
+              <Table channels={channels} />
             </div>
-          </div>
-          <div className={`${styles['form-container']} ${inter.className}`}>
-            <Form />
           </div>
         </div>
       </main>
