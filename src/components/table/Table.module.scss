@@ -52,7 +52,22 @@
 
   .table-body {
     min-width: 300px;
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 400px;
+    max-height: 400px;
     padding: 0.5rem;
+
+    &::-webkit-scrollbar {
+      background-color: transparent;
+      width: 0.3rem;
+      border: none;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(var(--card-border-rgb), 0.25);
+      border: none;
+    }
 
     .table-cell {
       display: grid;
@@ -75,6 +90,16 @@
           }
         }
       }
+    }
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(360deg);
+    }
+
+    to {
+      transform: rotate(0deg);
     }
   }
 }

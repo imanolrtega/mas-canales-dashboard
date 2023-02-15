@@ -27,13 +27,17 @@
     padding: 0.5rem;
   }
 
-  input {
+  input, select {
     font-size: 0.9rem;
     border: 1px solid rgba(var(--card-border-rgb), 0.30);
 
     &:focus {
       background: var(--input-glow);
     }
+  }
+
+  select {
+    margin-bottom: 1rem;
   }
 
   button {
@@ -43,6 +47,20 @@
 
     &:hover {
       background: var(--button-glow-hover);
+    }
+  }
+
+  .buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+
+    .edit-btn {
+      background: var(--edit-button-glow);
+
+      &:hover {
+        background: var(--edit-button-glow-hover);
+      }
     }
   }
 }

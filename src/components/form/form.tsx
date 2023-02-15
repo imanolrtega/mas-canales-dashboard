@@ -1,49 +1,108 @@
 import { useForm, SubmitHandler } from 'react-hook-form'
 import styles from './Form.module.scss'
 import { initFirebase } from '@/firebase/clientApp'
-import { addDoc, collection, getFirestore } from 'firebase/firestore'
+import {
+  addDoc,
+  collection,
+  doc,
+  getFirestore,
+  setDoc,
+} from 'firebase/firestore'
 import { Channel } from '@/types/channel'
+import { MouseEvent, useEffect } from 'react'
 
 const db = getFirestore(initFirebase())
 
-export default function Form() {
+type Form = {
+  channelToEdit: Channel
+  editChannel: boolean
+  setEditChannel: (value: boolean) => void
+  setChannelToEdit: (value: Channel) => void
+}
+
+export default function Form({
+  channelToEdit,
+  editChannel,
+  setEditChannel,
+  setChannelToEdit,
+}: Form) {
   const {
+    formState: { errors },
     handleSubmit,
     register,
     reset,
-    formState: { errors },
-  } = useForm<Channel>()
+    setValue,
+  } = useForm<Channel>({ defaultValues: channelToEdit })
   const onSubmit: SubmitHandler<Channel> = data => sendData(data)
 
   const sendData = async (data: Channel) => {
+    const formData = {
+      ...data,
+      favorite: false,
+    }
     try {
-      await addDoc(collection(db, 'channels'), {
-        ...data,
-      })
+      if (editChannel && channelToEdit) {
+        await setDoc(doc(db, 'channels', channelToEdit.docId), formData)
+        setEditChannel(false)
+        setChannelToEdit({} as Channel)
+      } else {
+        await addDoc(collection(db, 'channels'), formData)
+      }
       reset()
     } catch (error) {
       console.error('Error adding document: ', error)
     }
   }
 
+  const handleCancelBtn = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    if (editChannel && channelToEdit) {
+      setEditChannel(false)
+      setChannelToEdit({} as Channel)
+    }
+    setValue('name', '')
+    setValue('id', '')
+    setValue('type', '')
+  }
+
+  useEffect(() => {
+    if (editChannel && channelToEdit) {
+      setValue('name', channelToEdit.name)
+      setValue('id', channelToEdit.id)
+      setValue('type', channelToEdit.type)
+    }
+  }, [channelToEdit, editChannel, setValue])
+
   return (
     <form className={styles['form']} onSubmit={handleSubmit(onSubmit)}>
-      <label>Nombre</label>
-      <input {...register('name', { required: true })} />
-      {errors.id && <span>El nombre es requerido</span>}
-      <label>ID del Canal</label>
+      <label htmlFor="name">Nombre</label>
+      <input
+        {...register('name', {
+          required: true,
+        })}
+      />
+      {errors.name && <span>El nombre es requerido</span>}
+      <label htmlFor="id">ID del Canal</label>
       <input {...register('id', { required: true })} />
       {errors.id && <span>El ID es requerido</span>}
-      <label>URL del Canal</label>
-      <select
-        {...register('type', { required: true })}
-        placeholder="Selecciona el tipo de Canal"
-      >
+      <label htmlFor="type">Tipo Canal</label>
+      <select {...register('type', { required: true })}>
+        <option value="" disabled selected>
+          Seleccione el tipo
+        </option>
         <option value="TV">TV</option>
         <option value="Radio">Radio</option>
       </select>
-      {errors.id && <span>El tipo de canal es requerido</span>}
-      <button type="submit">Enviar</button>
+      {errors.type && <span>El tipo de canal es requerido</span>}
+      <div className={styles['buttons']}>
+        <button
+          className={`${editChannel ? styles['edit-btn'] : ''}`}
+          type="submit"
+        >
+          {editChannel ? 'Editar' : 'Agregar'}
+        </button>
+        <button onClick={e => handleCancelBtn(e)}>Cancelar</button>
+      </div>
     </form>
   )
 }

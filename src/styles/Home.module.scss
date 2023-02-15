@@ -47,6 +47,10 @@
       grid-template-columns: 1fr 1fr;
       gap: 5rem;
 
+      @media screen and (max-width: 780px) {
+        grid-template-columns: 1fr;
+      }
+
       .form-container {
         display: flex;
       }
@@ -59,34 +63,12 @@
   @media screen and (max-width: 1500px) {
     padding: 1rem;
 
-    .center {
+    .fancy-container {
       padding: 2rem 0;
+
+      .logo-container {
+        padding: 3rem 0;
+      }
     }
-  }
-}
-
-@media (prefers-reduced-motion) {
-  .table::before {
-    animation: none;
-  }
-
-  .card:hover span {
-    transform: none;
-  }
-}
-
-@keyframes rotate {
-  from {
-    transform: rotate(360deg);
-  }
-
-  to {
-    transform: rotate(0deg);
-  }
-}
-
-.form-inline {
-  label {
-    margin-bottom: 0.5rem;
   }
 }

@@ -1,5 +1,11 @@
 import { Channel } from '@/types/channel'
-import { collection, getFirestore, onSnapshot } from 'firebase/firestore'
+import {
+  collection,
+  doc,
+  deleteDoc,
+  getFirestore,
+  onSnapshot,
+} from 'firebase/firestore'
 import { initFirebase } from '@/firebase/clientApp'
 import { Rubik } from '@next/font/google'
 import { useEffect, useState } from 'react'
@@ -15,6 +21,9 @@ const rubik = Rubik({ subsets: ['latin'] })
 
 export default function Home() {
   const [channels, setChannels] = useState<Channel[]>([])
+  const [channelToEdit, setChannelToEdit] = useState<Channel>({} as Channel)
+  const [editChannel, setEditChannel] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -25,10 +34,19 @@ export default function Home() {
           docs.push({ ...doc.data(), docId: doc.id } as Channel)
         })
         setChannels(docs)
+        setLoading(false)
       }
     )
     return unsubscribe
   }, [])
+
+  const handleDelete = async (docId: string) => {
+    try {
+      await deleteDoc(doc(db, 'channels', docId))
+    } catch (error) {
+      console.error('Error deleting document: ', error)
+    }
+  }
 
   return (
     <>
@@ -51,10 +69,21 @@ export default function Home() {
           </div>
           <div className={`${styles['content']} ${rubik.className}`}>
             <div className={styles['form-container']}>
-              <Form />
+              <Form
+                channelToEdit={channelToEdit}
+                editChannel={editChannel}
+                setChannelToEdit={setChannelToEdit}
+                setEditChannel={setEditChannel}
+              />
             </div>
             <div className={styles['table-container']}>
-              <Table channels={channels} />
+              <Table
+                channels={channels}
+                handleDelete={handleDelete}
+                loading={loading}
+                setChannelToEdit={setChannelToEdit}
+                setEditChannel={setEditChannel}
+              />
             </div>
           </div>
         </div>

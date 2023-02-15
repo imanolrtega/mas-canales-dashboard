@@ -55,6 +55,12 @@
     --button-glow-hover: radial-gradient(ellipse at top, rgba(1, 65, 255, 0.2), rgba(1, 65, 255, 0)),
       radial-gradient(ellipse at bottom, rgba(1, 65, 255, 0.2), rgba(1, 65, 255, 0));
 
+    --edit-button-glow: radial-gradient(ellipse at top, rgba(148, 0, 211, 0.1), rgba(148, 0, 211, 0)),
+      radial-gradient(ellipse at bottom, rgba(148, 0, 211, 0.1), rgba(148, 0, 211, 0));
+
+    --edit-button-glow-hover: radial-gradient(ellipse at top, rgba(148, 0, 211, 0.2), rgba(148, 0, 211, 0)),
+      radial-gradient(ellipse at bottom, rgba(148, 0, 211, 0.2), rgba(148, 0, 211, 0));
+
     --tile-start-rgb: 2, 13, 46;
     --tile-end-rgb: 2, 5, 19;
     --tile-border: conic-gradient(#ffffff80,
