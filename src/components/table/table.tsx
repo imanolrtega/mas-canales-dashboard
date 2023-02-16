@@ -1,7 +1,7 @@
 import { Channel } from '@/types/channel'
 import { orderAlphabetically } from '@/utils/common'
-import styles from './Table.module.scss'
 import { useEffect, useRef } from 'react'
+import styles from './Table.module.scss'
 
 import DeleteIcon from '@/icons/delete'
 import EditIcon from '@/icons/edit'
@@ -9,18 +9,19 @@ import Loader from '../loader/loader'
 
 type Table = {
   channels: Channel[]
-  handleDelete: (docId: string) => void
+  handleDeleteModal: (channel: Channel) => void
   loading: boolean
-  setEditChannel: (value: boolean) => void
   setChannelToEdit: (value: Channel) => void
+  setEditChannel: (value: boolean) => void
+  setOpenModal: (value: boolean) => void
 }
 
 export default function Table({
   channels,
-  handleDelete,
+  handleDeleteModal,
   loading,
-  setEditChannel,
   setChannelToEdit,
+  setEditChannel,
 }: Table) {
   const tableRef = useRef<HTMLDivElement>(null)
   const handleEdit = (channel: Channel) => {
@@ -63,7 +64,7 @@ export default function Table({
                 </button>
                 <button
                   title="Eliminar Canal"
-                  onClick={() => handleDelete(channel.docId)}
+                  onClick={() => handleDeleteModal(channel)}
                 >
                   <DeleteIcon />
                 </button>

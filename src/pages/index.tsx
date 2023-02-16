@@ -15,6 +15,7 @@ import styles from '@/styles/Home.module.scss'
 
 import Form from '@/components/form/form'
 import Table from '@/components/table/table'
+import Modal from '@/components/modal/modal'
 
 const db = getFirestore(initFirebase())
 const rubik = Rubik({ subsets: ['latin'] })
@@ -22,8 +23,10 @@ const rubik = Rubik({ subsets: ['latin'] })
 export default function Home() {
   const [channels, setChannels] = useState<Channel[]>([])
   const [channelToEdit, setChannelToEdit] = useState<Channel>({} as Channel)
+  const [channelToDelete, setChannelToDelete] = useState<Channel>({} as Channel)
   const [editChannel, setEditChannel] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(true)
+  const [openModal, setOpenModal] = useState<boolean>(false)
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -40,9 +43,15 @@ export default function Home() {
     return unsubscribe
   }, [])
 
+  const handleDeleteModal = async (channel: Channel) => {
+    setOpenModal(true)
+    setChannelToDelete(channel)
+  }
+
   const handleDelete = async (docId: string) => {
     try {
       await deleteDoc(doc(db, 'channels', docId))
+      setOpenModal(false)
     } catch (error) {
       console.error('Error deleting document: ', error)
     }
@@ -79,14 +88,35 @@ export default function Home() {
             <div className={styles['table-container']}>
               <Table
                 channels={channels}
-                handleDelete={handleDelete}
+                handleDeleteModal={handleDeleteModal}
                 loading={loading}
                 setChannelToEdit={setChannelToEdit}
                 setEditChannel={setEditChannel}
+                setOpenModal={setOpenModal}
               />
             </div>
           </div>
         </div>
+        {openModal && (
+          <Modal setOpenModal={setOpenModal}>
+            <div className={`${styles['modal-container']} ${rubik.className}`}>
+              <div className={styles['modal-header']}>
+                <h3>Eliminar a {channelToDelete.name}</h3>
+              </div>
+              <div className={styles['modal-body']}>
+                <button
+                  onClick={() => handleDelete(channelToDelete.docId)}
+                  title="Eliminar"
+                >
+                  Eliminar
+                </button>
+                <button onClick={() => setOpenModal(false)} title="Cancelar">
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          </Modal>
+        )}
       </main>
     </>
   )

@@ -60,6 +60,42 @@
     }
   }
 
+  .modal-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .modal-header {
+      h3 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: white;
+      }
+      margin-bottom: 3rem;
+    }
+
+    .modal-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+
+      button {
+        color: white;
+        padding: 0.5rem 1rem;
+        background: var(--button-glow);
+        cursor: pointer;
+        border: 1px solid rgba(var(--card-border-rgb), 0.50);
+        border-radius: 0.4rem;
+        font-size: 1rem;
+
+        &:hover {
+          background: var(--button-glow-hover);
+        }
+      }
+    }
+  }
+
   @media screen and (max-width: 1500px) {
     padding: 1rem;
 

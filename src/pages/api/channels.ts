@@ -19,8 +19,8 @@ export default async function handler(
   })
 
   if (req.method === 'GET') {
-    res.status(200).json({ channels });
+    res.status(200).json({ channels })
   } else {
-    res.status(405).end();
+    res.status(405).end()
   }
 }
