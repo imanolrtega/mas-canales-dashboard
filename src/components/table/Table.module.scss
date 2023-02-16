@@ -58,6 +58,11 @@
     max-height: 400px;
     padding: 0.5rem;
 
+    @media screen and (max-width: 780px) {
+      height: 200px;
+      max-height: 200px;
+    }
+
     &::-webkit-scrollbar {
       background-color: transparent;
       width: 0.3rem;
