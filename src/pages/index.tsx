@@ -65,7 +65,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles['main']}>
+      <main className={`${styles['main']} ${rubik.className}`}>
         <div className={styles['fancy-container']}>
           <div className={styles['logo-container']}>
             <Image
@@ -76,7 +76,7 @@ export default function Home() {
               priority={true}
             />
           </div>
-          <div className={`${styles['content']} ${rubik.className}`}>
+          <div className={styles['content']}>
             <div className={styles['form-container']}>
               <Form
                 channelToEdit={channelToEdit}
@@ -96,10 +96,21 @@ export default function Home() {
               />
             </div>
           </div>
+          <div>
+            <a
+              className={styles['revalidate-btn']}
+              href={`${process.env.SITE_URL}/api/revalidate?secret=${process.env.REVALIDATE_SECRET_TOKEN}`}
+              rel="noreferrer"
+              target="_blank"
+              title='Actualizar "Más Canales"'
+            >
+              Actualizar &quot;Más Canales&quot;
+            </a>
+          </div>
         </div>
         {openModal && (
           <Modal setOpenModal={setOpenModal}>
-            <div className={`${styles['modal-container']} ${rubik.className}`}>
+            <div className={`${styles['modal-container']} `}>
               <div className={styles['modal-header']}>
                 <h3>Eliminar a {channelToDelete.name}</h3>
               </div>
@@ -119,6 +130,27 @@ export default function Home() {
           </Modal>
         )}
       </main>
+      <footer className={`${styles['footer']} ${rubik.className}`}>
+        <p>
+          Demo del Dashboard que hice para manejar los canales de{' '}
+          <a
+            style={{
+              color: 'rgba(60,255,208,.9)',
+            }}
+            href={process.env.SITE_URL}
+            rel="noreferrer"
+            target="_blank"
+            title='Actualizar "Más Canales"'
+          >
+            &quot;Más Canales&quot;
+          </a>
+        </p>
+        <p>
+          Utilizo Firestore Database para los datos, API Routes de NextJS para
+          exponerlos y On-demand Revalidation (también de NextJS) para
+          actualizar la web
+        </p>
+      </footer>
     </>
   )
 }
