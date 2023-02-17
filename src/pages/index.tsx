@@ -132,7 +132,7 @@ export default function Home() {
       </main>
       <footer className={`${styles['footer']} ${rubik.className}`}>
         <p>
-          Demo del Dashboard que hice para manejar los canales de{' '}
+          Demo del Dashboard para manejar los canales de{' '}
           <a
             style={{
               color: 'rgba(60,255,208,.9)',
