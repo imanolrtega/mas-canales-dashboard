@@ -5,8 +5,8 @@
     'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
 
-  --modal-bg:rgba(1, 65, 255, 0);
-  --modal-close-btn:rgba(1, 65, 255, 0.1);
+  --modal-bg: rgba(1, 65, 255, 0);
+  --modal-close-btn: rgba(1, 65, 255, 0.1);
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 0, 0, 0;
   --background-end-rgb: 0, 0, 0;
@@ -31,6 +31,12 @@
 
   --edit-button-glow-hover: radial-gradient(ellipse at top, rgba(148, 0, 211, 0.2), rgba(148, 0, 211, 0)),
     radial-gradient(ellipse at bottom, rgba(148, 0, 211, 0.2), rgba(148, 0, 211, 0));
+
+  --delete-button-glow: radial-gradient(ellipse at top, rgba(255, 0, 0, 0.1), rgba(255, 0, 0, 0)),
+    radial-gradient(ellipse at bottom, rgba(255, 0, 0, 0.1), rgba(255, 0, 0, 0));
+
+  --delete-button-glow-hover: radial-gradient(ellipse at top, rgba(255, 0, 0, 0.2), rgba(255, 0, 0, 0)),
+    radial-gradient(ellipse at bottom, rgba(255, 0, 0, 0.2), rgba(255, 0, 0, 0));
 
   --tile-start-rgb: 2, 13, 46;
   --tile-end-rgb: 2, 5, 19;

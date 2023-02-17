@@ -105,6 +105,7 @@ export default function Home() {
               </div>
               <div className={styles['modal-body']}>
                 <button
+                  className={styles['delete']}
                   onClick={() => handleDelete(channelToDelete.docId)}
                   title="Eliminar"
                 >

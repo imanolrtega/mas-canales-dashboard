@@ -93,6 +93,14 @@
           background: var(--button-glow-hover);
         }
       }
+
+      .delete {
+        background: var(--delete-button-glow);
+
+        &:hover {
+          background: var(--delete-button-glow-hover);
+        }
+      }
     }
   }
 
